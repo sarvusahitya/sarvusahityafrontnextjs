@@ -58,42 +58,40 @@ function Sliders() {
     <>
       <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
-          {sliders.map((slider) => (
-            <div
-              key={slider._id}
-              className={`keen-slider__slide number-slide${slider._id}`}
-            >
-              {/* You can render dynamic content for each slide here */}
-              <h2>{slider.slider_name}</h2>
-              <img src={slider.slider_media_url} alt={slider.slider_name} />
-              {/* Add more content here */}
-            </div>
-          ))}
+          <div className="keen-slider__slide number-slide1">1</div>
+          <div className="keen-slider__slide number-slide2">2</div>
+          <div className="keen-slider__slide number-slide3">3</div>
+          <div className="keen-slider__slide number-slide4">4</div>
+          <div className="keen-slider__slide number-slide5">5</div>
+          <div className="keen-slider__slide number-slide6">6</div>
         </div>
-        {instanceRef.current &&
-          instanceRef.current.track &&
-          instanceRef.current.track.details && (
-            <>
-              <Arrow
-                left
-                onClick={(e) =>
-                  e.stopPropagation() || instanceRef.current?.prev()
-                }
-                disabled={currentSlide === 0}
-              />
+        {instanceRef.current && (
+          <>
+            <Arrow
+              left
+              onClick={(e) =>
+                e.stopPropagation() || instanceRef.current?.prev()
+              }
+              disabled={currentSlide === 0}
+            />
 
-              <Arrow
-                onClick={(e) =>
-                  e.stopPropagation() || instanceRef.current?.next()
-                }
-                disabled={currentSlide === (3?.length || 0) - 1}
-              />
-            </>
-          )}
+            <Arrow
+              onClick={(e) =>
+                e.stopPropagation() || instanceRef.current?.next()
+              }
+              disabled={
+                currentSlide ===
+                instanceRef.current.track.details.slides.length - 1
+              }
+            />
+          </>
+        )}
       </div>
       {instanceRef.current && (
         <div className="dots">
-          {[...Array(3?.length || 0).keys()].map((idx) => {
+          {[
+            ...Array(instanceRef.current.track.details.slides.length).keys(),
+          ].map((idx) => {
             return (
               <button
                 key={idx}
@@ -111,13 +109,13 @@ function Sliders() {
 }
 
 function Arrow(props) {
-  const disabled = props.disabled ? " arrow--disabled" : "";
+  const disabeld = props.disabled ? " arrow--disabled" : "";
   return (
     <svg
       onClick={props.onClick}
       className={`arrow ${
         props.left ? "arrow--left" : "arrow--right"
-      } ${disabled}`}
+      } ${disabeld}`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
     >
