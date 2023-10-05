@@ -2,9 +2,12 @@
 "use client";
 import { useEffect, useState } from "react";
 
+import { Navigation, Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
+import "swiper/swiper-bundle.css";
 
+// import "./../swiper/css/navigation";
+// import "/swiper/css/pagination";
 const Gallery = () => {
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
@@ -62,7 +65,7 @@ const Gallery = () => {
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
-        autoplay={{ delay: 3000 }}
+        autoplay={{ delay: 1000 }}
       >
         {sliders.map((x, index) => {
           return (
