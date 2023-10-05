@@ -38,7 +38,6 @@ const Gallery = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           setSliders(data.data);
         } else {
@@ -59,23 +58,15 @@ const Gallery = () => {
   }));
 
   return (
-    <div className="swiper-container">
-      <Swiper
-        spaceBetween={30}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 1000 }}
-      >
-        {sliders.map((x, index) => {
-          return (
-            <SwiperSlide key={x._id}>
-              <img src={x.slider_media_url} alt="Slide 1" />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-    </div>
+    <Swiper spaceBetween={10} slidesPerView={2} autoplay={{ delay: 0 }}>
+      {sliders.map((x, index) => {
+        return (
+          <SwiperSlide key={x._id}>
+            <img src={x.slider_media_url} alt="Slide 1" />
+          </SwiperSlide>
+        );
+      })}
+    </Swiper>
   );
 };
 
