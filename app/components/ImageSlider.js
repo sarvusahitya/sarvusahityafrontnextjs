@@ -75,7 +75,6 @@ const Gallery = () => {
           );
         })}
       </Swiper>
-      <div className="swiper-button-next"></div>
     </div>
   );
 };
