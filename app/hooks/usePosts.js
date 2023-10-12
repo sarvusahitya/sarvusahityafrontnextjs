@@ -6,7 +6,7 @@ function usePosts() {
 
   useEffect(() => {
     // Fetch data from your API here
-    fetch("http://localhost:8086/sliders")
+    fetch("https://sarvusahitya.cyclic.cloud/sliders")
       .then((response) => response.json())
       .then((data) => setPosts(data));
   }, []);

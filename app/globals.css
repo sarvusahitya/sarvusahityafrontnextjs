@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.autocomplete-container {
+    position: relative;
+    z-index: 1; /* Ensure the autocomplete results are on top */
+  }
+  
+  .autocomplete-dropdown {
+    position: absolute;
+    top: 100%; /* Position the dropdown below the input */
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none; /* Hide by default */
+  }
+  
+  .autocomplete-container.active .autocomplete-dropdown {
+    display: block; /* Display the dropdown when active */
+  }
+  

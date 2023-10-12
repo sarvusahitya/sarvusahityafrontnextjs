@@ -1,11 +1,50 @@
 "use client";
-import { React, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import AutocompleteInput from "../components/AutocompleteInput";
+import AutocompleteResults from "../components/AutocompleteResults";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const [results, setResults] = useState([]);
+
+  const searchForAutocomplete = async (query) => {
+    try {
+      const apiUrl = "https://sarvusahitya.cyclic.cloud/searchforautocomplete";
+
+      // Define the request body
+      const reqBody = {
+        page: 1,
+        size: 10,
+        search: query,
+      };
+
+      // Make a POST request to the API
+      fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reqBody),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            setResults(data.data);
+          } else {
+            console.error("Failed to fetch sliders");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching sliders:", error);
+        });
+    } catch (error) {
+      console.error("Error fetching autocomplete results", error);
+    }
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -23,41 +62,10 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Toggle Button */}
-        <button
-          onClick={toggleMenu}
-          className="md:hidden text-gray-700 hover:text-black"
-        >
-          <FontAwesomeIcon icon={faEllipsisV} />
-        </button>
-
-        {/* Menu on the right (Hidden on small screens) */}
-        <nav className={`md:flex space-x-4 ${menuOpen ? "block" : "hidden"}`}>
-          <Link href="/about">
-            <span
-              className="cursor-pointer text-gray-700 hover:text-black"
-              onClick={toggleMenu}
-            >
-              About
-            </span>
-          </Link>
-          <Link href="/contactus">
-            <span
-              className="cursor-pointer text-gray-700 hover:text-black"
-              onClick={toggleMenu}
-            >
-              Contact Us
-            </span>
-          </Link>
-          <Link href="/feedback">
-            <span
-              className="cursor-pointer text-gray-700 hover:text-black"
-              onClick={toggleMenu}
-            >
-              Feedback
-            </span>
-          </Link>
-        </nav>
+        <div className="autocomplete-container relative">
+          <AutocompleteInput onSearch={searchForAutocomplete} />
+          <AutocompleteResults results={results} />
+        </div>
       </div>
     </header>
   );
