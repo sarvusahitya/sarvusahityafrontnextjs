@@ -13,7 +13,8 @@ const Header = () => {
 
   const searchForAutocomplete = async (query) => {
     try {
-      const apiUrl = "https://sarvusahitya.cyclic.cloud/searchforautocomplete";
+      const apiUrl =
+        "https://sarvusahitya.cyclic.cloud/post/search/autocomplete";
 
       // Define the request body
       const reqBody = {
