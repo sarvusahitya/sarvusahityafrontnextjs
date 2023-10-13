@@ -13,35 +13,37 @@ const Header = () => {
 
   const searchForAutocomplete = async (query) => {
     try {
-      const axios = require("axios");
-      let data = JSON.stringify({
-        page: 1,
-        size: 10,
-        search: query,
-      });
-
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "https://sarvu-sahitya-qdly.onrender.com/post/search/autocomplete",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwNTc5MzM2LCJleHAiOjE2ODMxNzEzMzZ9.N3FtKTmIpbgve4-PzBEcZIDpW7AeupHTjvm4mNnYYbk",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(response.data.data);
-          setResults(response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
+      if (query.length > 3) {
+        const axios = require("axios");
+        let data = JSON.stringify({
+          page: 1,
+          size: 10,
+          search: query,
         });
+
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "https://sarvu-sahitya-qdly.onrender.com/post/search/autocomplete",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwNTc5MzM2LCJleHAiOjE2ODMxNzEzMzZ9.N3FtKTmIpbgve4-PzBEcZIDpW7AeupHTjvm4mNnYYbk",
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
+
+        axios
+          .request(config)
+          .then((response) => {
+            console.log(response.data.data);
+            setResults(response.data.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
 
       console.log(query.length);
       // if (query.length > 3) {
