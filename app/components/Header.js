@@ -13,35 +13,69 @@ const Header = () => {
 
   const searchForAutocomplete = async (query) => {
     try {
-      const apiUrl =
-        "https://sarvusahitya.cyclic.cloud/post/search/autocomplete";
-
-      // Define the request body
-      const reqBody = {
+      const axios = require("axios");
+      let data = JSON.stringify({
         page: 1,
         size: 10,
         search: query,
-      };
+      });
 
-      // Make a POST request to the API
-      fetch(apiUrl, {
-        method: "POST",
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "https://sarvu-sahitya-qdly.onrender.com/post/search/autocomplete",
         headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwNTc5MzM2LCJleHAiOjE2ODMxNzEzMzZ9.N3FtKTmIpbgve4-PzBEcZIDpW7AeupHTjvm4mNnYYbk",
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(reqBody),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            setResults(data.data);
-          } else {
-            console.error("Failed to fetch sliders");
-          }
+        data: data,
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(response.data.data);
+          setResults(response.data.data);
         })
         .catch((error) => {
-          console.error("Error fetching sliders:", error);
+          console.log(error);
         });
+
+      console.log(query.length);
+      // if (query.length > 3) {
+      //   const apiUrl =
+      //     "https://sarvusahitya.cyclic.cloud/post/search/autocomplete";
+      //   // const apiUrl = "http://localhost:8086/post/search/autocomplete";
+
+      //   // Define the request body
+      //   const reqBody = {
+      //     page: 1,
+      //     size: 10,
+      //     search: query,
+      //   };
+
+      //   // Make a POST request to the API
+      //   fetch(apiUrl, {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(reqBody),
+      //   })
+      //     .then((response) => response.json())
+      //     .then((data) => {
+      //       if (data.success) {
+      //         setResults(data.data);
+      //       } else {
+      //         console.error("Failed to fetch sliders");
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       console.error("Error fetching sliders:", error);
+      //     });
+      // }
     } catch (error) {
       console.error("Error fetching autocomplete results", error);
     }
