@@ -13,7 +13,7 @@ const Header = () => {
 
   const searchForAutocomplete = async (query) => {
     try {
-      if (query.length > 3) {
+      if (query.length > 5) {
         const axios = require("axios");
         let data = JSON.stringify({
           page: 1,
