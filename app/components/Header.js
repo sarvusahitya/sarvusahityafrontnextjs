@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import AutocompleteInput from "../components/AutocompleteInput";
 import AutocompleteResults from "../components/AutocompleteResults";
+import { NextSeo } from "next-seo";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
