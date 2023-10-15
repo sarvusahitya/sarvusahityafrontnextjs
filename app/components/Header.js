@@ -101,7 +101,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="autocomplete-container relative">
+        <div className="autocomplete-container relative z-9">
           <AutocompleteInput onSearch={searchForAutocomplete} />
           <AutocompleteResults results={results} />
         </div>

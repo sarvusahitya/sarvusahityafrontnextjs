@@ -4,7 +4,7 @@ const AutocompleteResults = ({ results }) => {
   return (
     <>
       {results.length > 0 && (
-        <ul className="mt-2 border rounded shadow-lg">
+        <ul className="mt-2 border rounded shadow-lg absolute  bg-white z-100000">
           {results.map((result) => (
             <li
               key={result.post_slug}

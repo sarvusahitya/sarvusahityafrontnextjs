@@ -58,7 +58,12 @@ const Gallery = () => {
   }));
 
   return (
-    <Swiper spaceBetween={10} slidesPerView={2} autoplay={{ delay: 0 }}>
+    <Swiper
+      spaceBetween={10}
+      slidesPerView={2}
+      autoplay={{ delay: 0 }}
+      className="z-0 relative"
+    >
       {sliders.map((x, index) => {
         return (
           <SwiperSlide key={x._id}>

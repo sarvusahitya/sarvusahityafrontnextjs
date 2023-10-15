@@ -4,7 +4,7 @@
 
 .autocomplete-container {
     position: relative;
-    z-index: 1; /* Ensure the autocomplete results are on top */
+    z-index: 999; /* Ensure the autocomplete results are on top */
   }
   
   .autocomplete-dropdown {
