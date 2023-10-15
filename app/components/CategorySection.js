@@ -8,7 +8,7 @@ const CategorySection = () => {
 
   useEffect(() => {
     // Define your API endpoint URL
-    const apiUrl = "https://sarvu-sahitya-qdly.onrender.com/categorys";
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/categorys`;
 
     // Define the request body
     const reqBody = {

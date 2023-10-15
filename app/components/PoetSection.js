@@ -8,7 +8,7 @@ const PoetSection = () => {
 
   useEffect(() => {
     // Define your API endpoint URL
-    const apiUrl = "https://sarvu-sahitya-qdly.onrender.com/poets";
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/poets`;
 
     // Define the request body
     const reqBody = {

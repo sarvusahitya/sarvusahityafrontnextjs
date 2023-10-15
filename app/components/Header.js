@@ -13,6 +13,8 @@ const Header = () => {
 
   const searchForAutocomplete = async (query) => {
     try {
+      console.log("process.env.NEXT_PUBLIC_API_BASE_URL11111");
+      console.log(process.env.NEXT_PUBLIC_API_BASE_URL);
       if (query.length > 5) {
         const axios = require("axios");
         let data = JSON.stringify({
@@ -24,7 +26,7 @@ const Header = () => {
         let config = {
           method: "post",
           maxBodyLength: Infinity,
-          url: "https://sarvu-sahitya-qdly.onrender.com/post/search/autocomplete",
+          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/post/search/autocomplete`,
           headers: {
             Authorization:
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwNTc5MzM2LCJleHAiOjE2ODMxNzEzMzZ9.N3FtKTmIpbgve4-PzBEcZIDpW7AeupHTjvm4mNnYYbk",

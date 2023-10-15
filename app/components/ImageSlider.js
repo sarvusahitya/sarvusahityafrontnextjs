@@ -18,7 +18,7 @@ const Gallery = () => {
   const [sliders, setSliders] = useState([]);
   useEffect(() => {
     // Define your API endpoint URL
-    const apiUrl = "https://sarvu-sahitya-qdly.onrender.com/sliders";
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/sliders`;
 
     // Define the request body
     const reqBody = {
