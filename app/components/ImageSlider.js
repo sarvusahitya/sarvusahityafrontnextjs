@@ -8,46 +8,13 @@ import "swiper/swiper-bundle.css";
 
 // import "./../swiper/css/navigation";
 // import "/swiper/css/pagination";
-const Gallery = () => {
+const Gallery = ({ sliders }) => {
+  console.log("sliders");
+  console.log(sliders);
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [loaded, setLoaded] = useState(false);
-
-  const [sliders, setSliders] = useState([]);
-  useEffect(() => {
-    // Define your API endpoint URL
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/sliders`;
-
-    // Define the request body
-    const reqBody = {
-      page: 1,
-      size: 10,
-      orderby: -1,
-      orderbycolumnname: "createdAt",
-    };
-
-    // Make a POST request to the API
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reqBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          setSliders(data.data);
-        } else {
-          console.error("Failed to fetch sliders");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching sliders:", error);
-      });
-  }, []);
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 

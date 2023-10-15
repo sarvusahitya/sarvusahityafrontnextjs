@@ -2,43 +2,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import ProfilePicture from "./ProfilePicture";
-const CategorySection = () => {
+const CategorySection = ({ category }) => {
   // data/users.js
-  const [category, setCategorys] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Add a loading state
-
-  useEffect(() => {
-    // Define your API endpoint URL
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/categorys`;
-
-    // Define the request body
-    const reqBody = {
-      page: 1,
-      size: 50,
-      orderby: -1,
-      orderbycolumnname: "view",
-    };
-
-    // Make a POST request to the API
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reqBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          setCategorys(data.data);
-        } else {
-          console.error("Failed to fetch sliders");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching sliders:", error);
-      });
-  }, []);
 
   return (
     <>
