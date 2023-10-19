@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+import Image from "next/image";
 import ProfilePicture from "../components/ProfilePicture";
 const PostSection = () => {
   // data/users.js
@@ -47,7 +48,7 @@ const PostSection = () => {
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {posts.map((post, index) => (
           <div className="bg-white rounded-lg shadow-md p-4" key={index}>
-            <img
+            <Image
               src={post.post_media_url[0]}
               alt={post.post_name}
               className=""

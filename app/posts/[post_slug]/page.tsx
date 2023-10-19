@@ -2,6 +2,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import React from "react";
+import ReactHtmlParser from "html-react-parser";
+import Image from "next/image";
 
 import Link from "next/link";
 const PostSection = () => {
@@ -40,36 +43,57 @@ const PostSection = () => {
         console.error("Error fetching categories:", error);
       });
   }, []);
+  const options = {
+    weekday: "long", // Full name of the day of the week
+    year: "numeric",
+    month: "long", // Full name of the month
+    day: "numeric", // Day of the month
+  };
 
   return (
     <>
       {posts.map((post, index) => (
-        <div key={index}>
-          {" "}
-          {/* Added a wrapping div */}
-          <h2 className="text-2xl font-bold mb-4">{post.post_name}</h2>
-          <img src={post.post_media_url[0]} alt={post.post_name} />
-          <div className="mt-4">
-            <p className="text-gray-500">{post.createdAt}</p>
-            <div dangerouslySetInnerHTML={{ __html: post.post_description }} />
-          </div>
-          <div className="mt-4">
-            <div className="flex space-x-2">
-              {post.post_tags.map((tag, tagIndex) => (
-                <span
-                  key={tagIndex}
-                  className="px-2 py-1 bg-gray-200 text-gray-700 text-sm rounded-full m-2"
-                >
-                  {tag}
-                </span>
-              ))}
+        <div className="bg-white p-4 rounded-lg shadow-md  " key={index}>
+          {/* Display the image on top for mobile devices */}
+          <div className="md:flex md:space-x-4">
+            <div className="md:w-1/2">
+              <Image
+                src={post.post_media_url[0]}
+                alt={post.post_name}
+                width={400}
+                height={300}
+                layout="responsive"
+              />
             </div>
-          </div>
-          <div className="mt-4">
-            <h3>Poet Information:</h3>
-            <p>Poet Name: {post.poet_data[0].poet_name}</p>
-            <p>Birthplace: {post.poet_data[0].poet_birthplace}</p>
-            {/* Add more poet details as needed */}
+            <div className="md:w-1/2">
+              <div className="sticky top-0">
+                {/* Display post information on the right side */}
+                <h1 className="text-2xl font-bold mb-4">{post.post_name}</h1>
+                <p className="text-gray-600 mb-4">
+                  Category: {post.category_name}
+                </p>
+                <p className="text-gray-600 mb-4">Poet: {post.poet_name}</p>
+                <div className="prose max-w-none mb-4 overflow-auto">
+                  {/* Add "overflow-auto" class to make the content scrollable */}
+                  {ReactHtmlParser(post.post_description)}
+                </div>
+                <p className="text-gray-600">Total Views: {post.view}</p>
+                <div className="mt-4">
+                  <h3 className="text-xl font-semibold">Tags:</h3>
+                  <div className="flex flex-wrap space-x-2 mt-2">
+                    {post.post_tags.map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        className="bg-blue-500 text-white rounded-full px-2 py-1 text-sm mb-2"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Display the image on the left for screens larger than md */}
           </div>
         </div>
       ))}

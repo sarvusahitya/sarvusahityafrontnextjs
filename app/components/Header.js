@@ -6,6 +6,7 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import AutocompleteInput from "../components/AutocompleteInput";
 import AutocompleteResults from "../components/AutocompleteResults";
 import { NextSeo } from "next-seo";
+import Image from "next/image";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -97,7 +98,12 @@ const Header = () => {
         <div>
           <Link href="/">
             <span>
-              <img src="/images/logo.png" alt="Logo" width={100} height={100} />
+              <Image
+                src="/images/logo.png"
+                alt="Logo"
+                width={100}
+                height={100}
+              />
             </span>
           </Link>
         </div>
