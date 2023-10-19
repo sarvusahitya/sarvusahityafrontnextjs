@@ -11,7 +11,7 @@ const AutocompleteResults = ({ results }) => {
               className="p-2 hover:bg-gray-100 cursor-pointer"
             >
               {/* Customize the rendering as needed */}
-              <Link href={`/${result.post_slug}`}>
+              <Link href={`/posts/${result._id}`}>
                 <div className="custom-result">
                   <h3>{result.post_name}</h3>
                   <b>Category: {result.category_slug}</b>

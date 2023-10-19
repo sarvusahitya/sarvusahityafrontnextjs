@@ -2,6 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import ProfilePicture from "./ProfilePicture";
+import Link from "next/link";
 const PostSection = ({ posts }) => {
   // data/users.js
 
@@ -34,12 +35,12 @@ const PostSection = ({ posts }) => {
                 ))}
             </div>
             <div className=" bottom-0 left-0 w-full p-4 bg-white opacity-80 flex justify-between">
-              <a
+              <Link
                 href={`/posts/${post._id}`}
                 className="text-blue-600 hover:underline"
               >
-                Read more
-              </a>
+                Read More
+              </Link>
             </div>
           </div>
         </div>
