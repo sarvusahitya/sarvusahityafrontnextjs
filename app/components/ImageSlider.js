@@ -9,8 +9,6 @@ import "swiper/swiper-bundle.css";
 // import "./../swiper/css/navigation";
 // import "/swiper/css/pagination";
 const Gallery = ({ sliders }) => {
-  console.log("sliders");
-  console.log(sliders);
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
 

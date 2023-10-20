@@ -1,12 +1,14 @@
 // components/ProfilePicture.js
+import Image from "next/image";
 
 const ProfilePicture = ({ src, name }) => {
   return (
     <div className="flex flex-col items-center">
-      <img
+      <Image
         src={src}
-        alt={`Profile picture of ${name}`}
         className="w-24 h-24 rounded-full mb-2"
+        width={800}
+        height={400}
       />
       {name && <p className="text-lg">{name}</p>}
     </div>
