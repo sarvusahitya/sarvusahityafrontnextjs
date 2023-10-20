@@ -10,7 +10,7 @@ const PostSection = ({ posts }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
       {posts.map((post, index) => (
-        <Link href={`/posts/${post._id}`}>
+        <Link href={`/posts/${post._id}`} key={index}>
           <div className="bg-white rounded-lg shadow-md p-4" key={index}>
             {" "}
             <Image
@@ -20,7 +20,7 @@ const PostSection = ({ posts }) => {
               width={1200}
               height={400}
             />
-            <div className="mt-4">
+            <div className="mt-4" key={index}>
               <h2 className="text-xl font-semibold">{post.post_name}</h2>
               <p className="text-gray-500">{post.createdAt}</p>
               <p className="mt-2">
@@ -29,8 +29,8 @@ const PostSection = ({ posts }) => {
                   : post.post_description}
               </p>
             </div>
-            <div className="mt-4">
-              <div className="flex space-x-2">
+            <div className="mt-4" key={index}>
+              <div className="flex space-x-2" key={index}>
                 {post.post_tags
                   .filter((tag) => tag.length < 20)
                   .slice(0, 3) // Filter tags with length < 20
@@ -43,8 +43,12 @@ const PostSection = ({ posts }) => {
                     </span>
                   ))}
               </div>
-              <div className=" bottom-0 left-0 w-full p-4 bg-white opacity-80 flex justify-between">
+              <div
+                className=" bottom-0 left-0 w-full p-4 bg-white opacity-80 flex justify-between"
+                key={index}
+              >
                 <Link
+                  key={index}
                   href={`/posts/${post._id}`}
                   className="text-blue-600 hover:underline"
                 >
