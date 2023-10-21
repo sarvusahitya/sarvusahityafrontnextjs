@@ -32,7 +32,12 @@ const Gallery = ({ sliders }) => {
       {sliders.map((x, index) => {
         return (
           <SwiperSlide key={x._id}>
-            <img src={x.slider_media_url} alt="Slide 1" />
+            <img
+              src={x.slider_media_url}
+              alt="Slide 1"
+              width={1200}
+              height={100}
+            />
           </SwiperSlide>
         );
       })}
