@@ -9,6 +9,14 @@ import "swiper/swiper-bundle.css";
 // import "./../swiper/css/navigation";
 // import "/swiper/css/pagination";
 const Gallery = ({ sliders }) => {
+  const convertToWebP = (url) => {
+    // Check if the URL already ends with .webp, if not, replace the extension
+    if (!url.endsWith(".webp")) {
+      return url.replace(/\.(jpg|jpeg|png)/, ".webp");
+    }
+    return url;
+  };
+
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
 
@@ -21,6 +29,10 @@ const Gallery = ({ sliders }) => {
     width: 3840,
     height: 2560,
   }));
+  const webpSliders = sliders.map((slider) => ({
+    ...slider,
+    slider_media_url: convertToWebP(slider.slider_media_url),
+  }));
 
   return (
     <Swiper
@@ -29,7 +41,7 @@ const Gallery = ({ sliders }) => {
       autoplay={{ delay: 0 }}
       className="z-0 relative"
     >
-      {sliders.map((x, index) => {
+      {webpSliders.map((x, index) => {
         return (
           <SwiperSlide key={x._id}>
             <img

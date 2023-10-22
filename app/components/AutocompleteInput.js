@@ -13,7 +13,7 @@ const AutocompleteInput = ({ onSearch }) => {
   return (
     <input
       type="text"
-      placeholder="Search for devlop"
+      placeholder="Search ..."
       value={query}
       onChange={handleInputChange}
       className="w-full p-3 border rounded"
