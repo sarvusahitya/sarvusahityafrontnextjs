@@ -2,20 +2,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { convertToWebP } from "@/utils/ssutils";
 
 import Image from "next/image";
 import ProfilePicture from "../components/ProfilePicture";
 const PostSection = () => {
   // data/users.js
-  const convertToWebP = (imageUrl) => {
-    // Check if the browser supports WebP format
-    // Check if the URL already ends with .webp, if not, replace the extension
-    if (!imageUrl.endsWith(".webp")) {
-      return imageUrl.replace(/\.(jpg|jpeg|png)/, ".webp");
-    }
-
-    return imageUrl; // Return the original URL if WebP is not supported or it's already in WebP format
-  };
 
   const [posts, setPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state

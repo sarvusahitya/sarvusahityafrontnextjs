@@ -6,17 +6,10 @@ import { Navigation, Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 
+import { convertToWebP } from "@/utils/ssutils";
 // import "./../swiper/css/navigation";
 // import "/swiper/css/pagination";
 const Gallery = ({ sliders }) => {
-  const convertToWebP = (url) => {
-    // Check if the URL already ends with .webp, if not, replace the extension
-    if (!url.endsWith(".webp")) {
-      return url.replace(/\.(jpg|jpeg|png)/, ".webp");
-    }
-    return url;
-  };
-
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
 

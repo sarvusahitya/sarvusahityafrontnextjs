@@ -25,14 +25,12 @@ const Footer = () => {
         <Link href="https://www.facebook.com/sarvusahitya">
           <span style={linkStyle}>Facebook</span>
         </Link>
-        <Link href="https://twitter.com/sarvusahitya">
-          <span style={linkStyle}>Twitter</span>
-        </Link>
+
         <Link href="https://www.instagram.com/sarvusahitya">
           <span style={linkStyle}>Instagram</span>
         </Link>
-        <Link href="https://www.linkedin.com/company/sarvusahitya">
-          <span style={linkStyle}>LinkedIn</span>
+        <Link href="https://www.youtube.com/@sarvusahitya">
+          <span style={linkStyle}>Youtube</span>
         </Link>
       </div>
     </footer>

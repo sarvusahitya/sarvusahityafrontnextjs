@@ -5,20 +5,10 @@ import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import ReactHtmlParser from "html-react-parser";
 import Image from "next/image";
+import { convertToWebP } from "@/utils/ssutils";
 
 import Link from "next/link";
 const PostSection = () => {
-  // data/users.js
-  const convertToWebP = (imageUrl) => {
-    // Check if the browser supports WebP format
-    // Check if the URL already ends with .webp, if not, replace the extension
-    if (!imageUrl.endsWith(".webp")) {
-      return imageUrl.replace(/\.(jpg|jpeg|png)/, ".webp");
-    }
-
-    return imageUrl; // Return the original URL if WebP is not supported or it's already in WebP format
-  };
-
   const pathname = usePathname();
   const parts = pathname.split("/");
   const lastSlug = parts[parts.length - 1];
