@@ -1,6 +1,10 @@
 import Link from "next/link";
 
 const AutocompleteResults = ({ results }) => {
+  if (results.length === 0) {
+    return null; // Return nothing if there are no results.
+  }
+
   return (
     <>
       {results.length > 0 && (

@@ -2,64 +2,55 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisV,
+  faTimes,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import AutocompleteInput from "../components/AutocompleteInput";
 import AutocompleteResults from "../components/AutocompleteResults";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 
 const Header = () => {
-  const [searchResults, setSearchResults] = useState([]);
-
   const [menuOpen, setMenuOpen] = useState(false);
-  const [clearResults, setClearResults] = useState(false);
 
   const [results, setResults] = useState([]);
-  const handleSearch = (query) => {
-    // Perform the search based on the query and update searchResults.
-    // Implement your search logic here.
-    setSearchResults(yourSearchLogic(query));
-    setClearResults(false); // Set clearResults to false to display the results.
-  };
-  const handleClearResults = () => {
-    setClearResults(true); // Set clearResults to true to clear the results.
-  };
 
   const searchForAutocomplete = async (query) => {
     try {
-      console.log("process.env.NEXT_PUBLIC_API_BASE_URL11111");
-      console.log(process.env.NEXT_PUBLIC_API_BASE_URL);
-      if (query.length > 5) {
-        const axios = require("axios");
-        let data = JSON.stringify({
-          page: 1,
-          size: 10,
-          search: query,
-        });
-
-        let config = {
-          method: "post",
-          maxBodyLength: Infinity,
-          url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/post/search/autocomplete`,
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwNTc5MzM2LCJleHAiOjE2ODMxNzEzMzZ9.N3FtKTmIpbgve4-PzBEcZIDpW7AeupHTjvm4mNnYYbk",
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          data: data,
-        };
-
-        axios
-          .request(config)
-          .then((response) => {
-            console.log(response.data.data);
-            setResults(response.data.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      if (query.length < 1) {
+        setResults([]);
+        return null;
       }
+      const axios = require("axios");
+      let data = JSON.stringify({
+        page: 1,
+        size: 10,
+        search: query,
+      });
+
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/post/search/autocomplete`,
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwNTc5MzM2LCJleHAiOjE2ODMxNzEzMzZ9.N3FtKTmIpbgve4-PzBEcZIDpW7AeupHTjvm4mNnYYbk",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          setResults(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
       // if (query.length > 3) {
       //   const apiUrl =
@@ -120,11 +111,7 @@ const Header = () => {
         </div>
 
         <div className="autocomplete-container relative z-9">
-          <AutocompleteInput
-            onSearch={searchForAutocomplete}
-            clearResults={clearResults}
-            onClearResults={handleClearResults}
-          />
+          <AutocompleteInput onSearch={searchForAutocomplete} />
 
           <AutocompleteResults results={results} />
         </div>
