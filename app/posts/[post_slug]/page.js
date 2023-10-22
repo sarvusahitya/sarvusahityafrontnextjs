@@ -9,6 +9,16 @@ import Image from "next/image";
 import Link from "next/link";
 const PostSection = () => {
   // data/users.js
+  const convertToWebP = (imageUrl) => {
+    // Check if the browser supports WebP format
+    // Check if the URL already ends with .webp, if not, replace the extension
+    if (!imageUrl.endsWith(".webp")) {
+      return imageUrl.replace(/\.(jpg|jpeg|png)/, ".webp");
+    }
+
+    return imageUrl; // Return the original URL if WebP is not supported or it's already in WebP format
+  };
+
   const pathname = usePathname();
   const parts = pathname.split("/");
   const lastSlug = parts[parts.length - 1];
@@ -58,7 +68,7 @@ const PostSection = () => {
           <div className="md:flex md:space-x-4">
             <div className="md:w-1/2">
               <Image
-                src={post.post_media_url[0]}
+                src={convertToWebP(post.post_media_url[0])}
                 alt={post.post_name}
                 width={400}
                 height={300}

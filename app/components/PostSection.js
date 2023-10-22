@@ -7,6 +7,15 @@ import Image from "next/image";
 const PostSection = ({ posts }) => {
   // data/users.js
 
+  const convertToWebP = (imageUrl) => {
+    // Check if the browser supports WebP format
+    // Check if the URL already ends with .webp, if not, replace the extension
+    if (!imageUrl.endsWith(".webp")) {
+      return imageUrl.replace(/\.(jpg|jpeg|png)/, ".webp");
+    }
+
+    return imageUrl; // Return the original URL if WebP is not supported or it's already in WebP format
+  };
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
       {posts.map((post, index) => (
@@ -14,7 +23,7 @@ const PostSection = ({ posts }) => {
           <div className="bg-white rounded-lg shadow-md p-4" key={index}>
             {" "}
             <Image
-              src={post.post_media_url[0]}
+              src={convertToWebP(post.post_media_url[0])}
               alt={post.post_name}
               className=""
               width={1200}

@@ -7,6 +7,15 @@ import Image from "next/image";
 import ProfilePicture from "../components/ProfilePicture";
 const PostSection = () => {
   // data/users.js
+  const convertToWebP = (imageUrl) => {
+    // Check if the browser supports WebP format
+    // Check if the URL already ends with .webp, if not, replace the extension
+    if (!imageUrl.endsWith(".webp")) {
+      return imageUrl.replace(/\.(jpg|jpeg|png)/, ".webp");
+    }
+
+    return imageUrl; // Return the original URL if WebP is not supported or it's already in WebP format
+  };
 
   const [posts, setPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
@@ -49,8 +58,10 @@ const PostSection = () => {
         {posts.map((post, index) => (
           <div className="bg-white rounded-lg shadow-md p-4" key={index}>
             <Image
-              src={post.post_media_url[0]}
+              src={convertToWebP(post.post_media_url[0])}
               alt={post.post_name}
+              width={1200}
+              height={100}
               className=""
             />
             <div className="mt-4">
