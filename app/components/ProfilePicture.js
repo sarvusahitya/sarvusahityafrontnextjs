@@ -8,7 +8,7 @@ const ProfilePicture = ({ src, name }) => {
       <Image
         src={convertToWebP(src)}
         className="w-24 h-24 rounded-full mb-2"
-        width={800}
+        width={400}
         height={400}
         alt="Sarvu Sahitya"
       />

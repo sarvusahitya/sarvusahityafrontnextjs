@@ -35,7 +35,6 @@ const PoetSection = () => {
       .then((data) => {
         if (data.success) {
           setPoetData(data.data);
-          console.log(data.data);
           setIsLoading(false); // Set loading to false when data is fetched
         } else {
           console.error("Failed to fetch categories");

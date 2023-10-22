@@ -9,9 +9,21 @@ import { NextSeo } from "next-seo";
 import Image from "next/image";
 
 const Header = () => {
+  const [searchResults, setSearchResults] = useState([]);
+
   const [menuOpen, setMenuOpen] = useState(false);
+  const [clearResults, setClearResults] = useState(false);
 
   const [results, setResults] = useState([]);
+  const handleSearch = (query) => {
+    // Perform the search based on the query and update searchResults.
+    // Implement your search logic here.
+    setSearchResults(yourSearchLogic(query));
+    setClearResults(false); // Set clearResults to false to display the results.
+  };
+  const handleClearResults = () => {
+    setClearResults(true); // Set clearResults to true to clear the results.
+  };
 
   const searchForAutocomplete = async (query) => {
     try {
@@ -49,7 +61,6 @@ const Header = () => {
           });
       }
 
-      console.log(query.length);
       // if (query.length > 3) {
       //   const apiUrl =
       //     "https://sarvusahitya.cyclic.cloud/post/search/autocomplete";
@@ -109,7 +120,12 @@ const Header = () => {
         </div>
 
         <div className="autocomplete-container relative z-9">
-          <AutocompleteInput onSearch={searchForAutocomplete} />
+          <AutocompleteInput
+            onSearch={searchForAutocomplete}
+            clearResults={clearResults}
+            onClearResults={handleClearResults}
+          />
+
           <AutocompleteResults results={results} />
         </div>
       </div>
