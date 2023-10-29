@@ -40,14 +40,14 @@ export default function Home() {
         const data = response.data;
         if (data.success) {
           setSliderData(data.data);
-          getCategoryData();
+          // getCategoryData();
         } else {
           console.error("Failed to fetch sliders");
-          getCategoryData();
+          // getCategoryData();
         }
       })
       .catch((error) => {
-        getCategoryData();
+        // getCategoryData();
         console.error("Error fetching sliders:", error);
       });
   }
@@ -75,11 +75,11 @@ export default function Home() {
           getPoetData();
         } else {
           console.error("Failed to fetch sliders");
-          getCategoryData();
+          // getCategoryData();
         }
       })
       .catch((error) => {
-        getPoetData();
+        // getPoetData();
         console.error("Error fetching sliders:", error);
       });
     // Make a POST request to the API
@@ -108,11 +108,11 @@ export default function Home() {
           getPostData();
         } else {
           console.error("Failed to fetch sliders");
-          getCategoryData();
+          // getCategoryData();
         }
       })
       .catch((error) => {
-        getPostData();
+        // getPostData();
         console.error("Error fetching sliders:", error);
       });
     // Make a POST request to the API
@@ -141,16 +141,19 @@ export default function Home() {
           setPostData(data.data);
         } else {
           console.error("Failed to fetch sliders");
-          getCategoryData();
+          // getCategoryData();
         }
       })
       .catch((error) => {
-        getPostData();
+        // getPostData();
         console.error("Error fetching sliders:", error);
       });
   }
   useEffect(() => {
     getSliderData();
+    getCategoryData();
+    getPoetData();
+    getPostData();
   }, []);
 
   return (
