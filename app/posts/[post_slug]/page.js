@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import ReactHtmlParser from "html-react-parser";
 import Image from "next/image";
+import axios from "axios";
 import { convertToWebP } from "@/utils/ssutils";
 
 import Link from "next/link";
@@ -22,24 +23,23 @@ const PostSection = () => {
     };
     console.log(reqBody);
 
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reqBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .post(apiUrl, reqBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
         if (data.success) {
           setPostData(data.data);
           setIsLoading(false); // Set loading to false when data is fetched
         } else {
-          console.error("Failed to fetch categories");
+          console.error("Failed to fetch more posts");
         }
       })
       .catch((error) => {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching more posts:", error);
       });
   }, []);
   const options = {

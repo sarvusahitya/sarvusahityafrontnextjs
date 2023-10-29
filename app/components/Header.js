@@ -10,6 +10,8 @@ import {
 import AutocompleteInput from "../components/AutocompleteInput";
 import AutocompleteResults from "../components/AutocompleteResults";
 import { NextSeo } from "next-seo";
+const axios = require("axios");
+
 import Image from "next/image";
 
 const Header = () => {
@@ -23,7 +25,6 @@ const Header = () => {
         setResults([]);
         return null;
       }
-      const axios = require("axios");
       let data = JSON.stringify({
         page: 1,
         size: 10,
@@ -51,39 +52,6 @@ const Header = () => {
         .catch((error) => {
           console.log(error);
         });
-
-      // if (query.length > 3) {
-      //   const apiUrl =
-      //     "https://sarvusahitya.cyclic.cloud/post/search/autocomplete";
-      //   // const apiUrl = "http://localhost:8086/post/search/autocomplete";
-
-      //   // Define the request body
-      //   const reqBody = {
-      //     page: 1,
-      //     size: 10,
-      //     search: query,
-      //   };
-
-      //   // Make a POST request to the API
-      //   fetch(apiUrl, {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(reqBody),
-      //   })
-      //     .then((response) => response.json())
-      //     .then((data) => {
-      //       if (data.success) {
-      //         setResults(data.data);
-      //       } else {
-      //         console.error("Failed to fetch sliders");
-      //       }
-      //     })
-      //     .catch((error) => {
-      //       console.error("Error fetching sliders:", error);
-      //     });
-      // }
     } catch (error) {
       console.error("Error fetching autocomplete results", error);
     }
@@ -99,14 +67,7 @@ const Header = () => {
         {/* Logo on the left */}
         <div>
           <Link href="/">
-            <span>
-              <Image
-                src="/images/logo.png"
-                alt="Logo"
-                width={100}
-                height={100}
-              />
-            </span>
+            <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
           </Link>
         </div>
 

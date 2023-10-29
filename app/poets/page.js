@@ -20,24 +20,23 @@ const PoetSection = () => {
       orderbycolumnname: "view",
     };
 
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reqBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .post(apiUrl, reqBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
         if (data.success) {
           setPoetData(data.data);
           setIsLoading(false); // Set loading to false when data is fetched
         } else {
-          console.error("Failed to fetch categories");
+          console.error("Failed to fetch more posts");
         }
       })
       .catch((error) => {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching more posts:", error);
       });
   }, []);
 

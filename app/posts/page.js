@@ -1,8 +1,9 @@
 // Components/Gallery.js
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { convertToWebP } from "@/utils/ssutils";
+import axios from "axios";
 
 import Image from "next/image";
 import ProfilePicture from "../components/ProfilePicture";
@@ -11,36 +12,66 @@ const PostSection = () => {
 
   const [posts, setPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
+  const [page, setPage] = useState(0); // Track the page number
 
-  useEffect(() => {
+  const loadMorePosts = () => {
+    setIsLoading(true);
+    // Fetch more data based on the next page number
     const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts`;
     const reqBody = {
-      page: 1,
-      size: 50,
+      page: page + 1, // Increment the page number
+      size: 8,
       orderby: -1,
       orderbycolumnname: "view",
     };
 
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reqBody),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .post(apiUrl, reqBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
         if (data.success) {
-          setPostData(data.data);
-          setIsLoading(false); // Set loading to false when data is fetched
+          setPostData([...posts, ...data.data]); // Append new data to the existing posts
+          setPage(page + 1); // Update the page number
+          setIsLoading(false);
         } else {
-          console.error("Failed to fetch categories");
+          console.error("Failed to fetch more posts");
         }
       })
       .catch((error) => {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching more posts:", error);
       });
+  };
+
+  useEffect(() => {
+    loadMorePosts();
   }, []);
+
+  useEffect(() => {
+    // Create an IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isLoading) {
+          // When the last element is intersecting and not loading, load more data
+          loadMorePosts();
+        }
+      },
+      {
+        threshold: 1, // 1 means when the last element is fully in the viewport
+      }
+    );
+
+    if (posts.length > 0) {
+      observer.observe(document.getElementById(`post-${posts.length - 1}`));
+    }
+
+    return () => {
+      observer.disconnect(); // Disconnect the observer when the component is unmounted
+    };
+  }, [posts, isLoading]);
 
   return (
     <>
@@ -48,7 +79,11 @@ const PostSection = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {posts.map((post, index) => (
-          <div className="bg-white rounded-lg shadow-md p-4" key={index}>
+          <div
+            className="bg-white rounded-lg shadow-md p-4"
+            key={index}
+            id={`post-${index}`}
+          >
             <Image
               src={convertToWebP(post.post_media_url[0])}
               alt={post.post_name}
@@ -90,6 +125,7 @@ const PostSection = () => {
             </div>
           </div>
         ))}
+        {isLoading && <p>Loading...</p>}
       </div>
     </>
   );
