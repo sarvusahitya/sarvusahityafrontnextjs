@@ -2,8 +2,6 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import axios from "axios";
-
 const ImageSlider = dynamic(() => import("../app/components/ImageSlider"));
 const PoetSection = dynamic(() => import("../app/components/PoetSection"));
 const CategorySection = dynamic(
@@ -16,7 +14,6 @@ export default function Home() {
   const [categoryData, setCategoryData] = useState(null);
   const [poetData, setPoetData] = useState(null);
   const [postData, setPostData] = useState(null);
-  // Make a POST request to the API
 
   function getSliderData() {
     // Define your API endpoint URL
@@ -30,24 +27,27 @@ export default function Home() {
       orderbycolumnname: "createdAt",
     };
 
-    axios
-      .post(apiUrl, reqBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        const data = response.data;
+    // Make a POST request to the API
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqBody),
+    })
+      .then((response) => response.json())
+      .then((data) => {
         if (data.success) {
           setSliderData(data.data);
-          // getCategoryData();
+          getCategoryData();
         } else {
           console.error("Failed to fetch sliders");
-          // getCategoryData();
+          getCategoryData();
         }
       })
       .catch((error) => {
-        // getCategoryData();
+        getCategoryData();
+
         console.error("Error fetching sliders:", error);
       });
   }
@@ -62,27 +62,28 @@ export default function Home() {
       orderbycolumnname: "view",
     };
 
-    axios
-      .post(apiUrl, reqBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        const data = response.data;
+    // Make a POST request to the API
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqBody),
+    })
+      .then((response) => response.json())
+      .then((data) => {
         if (data.success) {
           setCategoryData(data.data);
           getPoetData();
         } else {
+          getPoetData();
           console.error("Failed to fetch sliders");
-          // getCategoryData();
         }
       })
       .catch((error) => {
-        // getPoetData();
+        getPoetData();
         console.error("Error fetching sliders:", error);
       });
-    // Make a POST request to the API
   }
   function getPoetData() {
     const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/poets`;
@@ -95,27 +96,28 @@ export default function Home() {
       orderbycolumnname: "view",
     };
 
-    axios
-      .post(apiUrl, reqBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        const data = response.data;
+    // Make a POST request to the API
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqBody),
+    })
+      .then((response) => response.json())
+      .then((data) => {
         if (data.success) {
           setPoetData(data.data);
           getPostData();
         } else {
+          getPostData();
           console.error("Failed to fetch sliders");
-          // getCategoryData();
         }
       })
       .catch((error) => {
-        // getPostData();
+        getPostData();
         console.error("Error fetching sliders:", error);
       });
-    // Make a POST request to the API
   }
 
   function getPostData() {
@@ -129,31 +131,28 @@ export default function Home() {
       orderbycolumnname: "view",
     };
 
-    axios
-      .post(apiUrl, reqBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        const data = response.data;
+    // Make a POST request to the API
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqBody),
+    })
+      .then((response) => response.json())
+      .then((data) => {
         if (data.success) {
           setPostData(data.data);
         } else {
           console.error("Failed to fetch sliders");
-          // getCategoryData();
         }
       })
       .catch((error) => {
-        // getPostData();
         console.error("Error fetching sliders:", error);
       });
   }
   useEffect(() => {
     getSliderData();
-    getCategoryData();
-    getPoetData();
-    getPostData();
   }, []);
 
   return (
