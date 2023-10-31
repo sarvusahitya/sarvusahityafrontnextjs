@@ -151,9 +151,15 @@ export default function Home() {
         console.error("Error fetching sliders:", error);
       });
   }
+  const [clientRender, setClientRender] = useState(false);
+
   useEffect(() => {
+    if (!clientRender) {
+      setClientRender(true);
+      return;
+    }
     getSliderData();
-  }, []);
+  }, [clientRender]);
 
   return (
     <section>
