@@ -2,16 +2,22 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 
 import Image from "next/image";
 import ProfilePicture from "../components/ProfilePicture";
 const PoetSection = () => {
   // data/users.js
+  const [clientRender, setClientRender] = useState(false);
 
   const [poets, setPoetData] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
 
   useEffect(() => {
+    if (!clientRender) {
+      setClientRender(true);
+      return;
+    }
     const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/poets`;
     const reqBody = {
       page: 1,
@@ -38,7 +44,7 @@ const PoetSection = () => {
       .catch((error) => {
         console.error("Error fetching more posts:", error);
       });
-  }, []);
+  }, [clientRender]);
 
   return (
     <>

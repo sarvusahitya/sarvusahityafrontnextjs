@@ -9,7 +9,7 @@ const CategorySection = ({ category }) => {
     <>
       <h2 className="text-2xl font-bold mb-4">Category Section</h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {category.map((user, index) => (
           <div key={index} className="text-center">
             <ProfilePicture

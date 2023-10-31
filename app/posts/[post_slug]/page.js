@@ -15,8 +15,13 @@ const PostSection = () => {
   const lastSlug = parts[parts.length - 1];
   const [posts, setPostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add a loading state
+  const [clientRender, setClientRender] = useState(false);
 
   useEffect(() => {
+    if (!clientRender) {
+      setClientRender(true);
+      return;
+    }
     const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/posts`;
     const reqBody = {
       _id: lastSlug,
@@ -41,7 +46,7 @@ const PostSection = () => {
       .catch((error) => {
         console.error("Error fetching more posts:", error);
       });
-  }, []);
+  }, [clientRender]);
   const options = {
     weekday: "long", // Full name of the day of the week
     year: "numeric",

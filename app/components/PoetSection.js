@@ -7,7 +7,7 @@ const PoetSection = ({ poets }) => {
   return (
     <>
       <h2 className="text-2xl font-bold mb-4 mt-5">Poet Section</h2>
-
+      <Link href={"/poets"}>View All</Link>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {poets.map((user, index) => (
           <div key={index} className="text-center">
