@@ -6,7 +6,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["codetraction.com"],
+    domains: ["sarvusahitya.s3.ap-south-1.amazonaws.com"],
   },
 };
 
