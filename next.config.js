@@ -2,11 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    appDir: true,
-  },
+
   images: {
-    domains: ["sarvusahitya.s3.ap-south-1.amazonaws.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "sarvusahitya.s3.ap-south-1.amazonaws.com",
+        pathname: "**",
+      },
+    ],
   },
 };
 
